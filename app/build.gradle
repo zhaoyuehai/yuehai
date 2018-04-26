@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+//初始化签名数据
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+
+android {
+    compileSdkVersion build_versions.compile_sdk_version
+    defaultConfig {
+        applicationId "com.lao1818.mobile"
+        minSdkVersion build_versions.min_sdk_version
+        targetSdkVersion build_versions.target_sdk_version
+        versionCode app_versions.versionCode
+        versionName app_versions.versionName
+//        multDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+//    signingConfigs {
+//        release{
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile file(keystoreProperties['storeFile'])
+//            storePassword keystoreProperties['storePassword']
+//        }
+//    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            //是否zip对齐
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources true
+            //dex突破65535的限制
+            multiDexEnabled true
+            //混淆
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+//            signingConfig signingConfigs.release
+        }
+        debug {
+            //是否zip对齐
+            zipAlignEnabled false
+            //移除无用的resource文件
+            shrinkResources false
+            //混淆
+            minifyEnabled false
+            //签名
+//            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    implementation apis.support.multidex
+    implementation project(':common')
+    if (!isModule.toBoolean()) {
+        implementation project(':main')
+        implementation project(':search')
+        implementation project(':center')
+    }
+}

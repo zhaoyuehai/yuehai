@@ -1,0 +1,11 @@
+<manifest package="com.yuehai.android.center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:screenOrientation="portrait"
+        android:theme="@style/AppThemeBase">
+        <activity android:name=".ui.UserInfoActivity" />
+
+    </application>
+
+
+</manifest>

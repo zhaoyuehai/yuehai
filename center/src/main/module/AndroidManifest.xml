@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.yuehai.android.center">
+
+    <application
+        android:name="debug.CenterApplication"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Center组件"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppThemeBase">
+
+        <activity android:name=".ui.UserInfoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

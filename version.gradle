@@ -1,0 +1,54 @@
+//安装包版本
+def app_versions = [:]
+app_versions.versionCode = 1
+app_versions.versionName = "1.0.0"
+ext.app_versions = app_versions
+
+//插件版本等
+def plugin_versions = [:]
+plugin_versions.kotlin_plugin_version = '1.1.51'
+plugin_versions.gradle_plugin_version = '3.1.2'
+ext.plugin_versions = plugin_versions
+
+//编译版本等
+def build_versions = [:]
+build_versions.compile_sdk_version = 27
+build_versions.min_sdk_version = 14
+build_versions.build_tools_version='27.0.3'
+build_versions.target_sdk_version = 27
+ext.build_versions = build_versions
+
+//依赖管理
+ext.apis = [:]
+
+//依赖各版本号
+def versions = [:]
+versions.support = "27.1.1"
+versions.multidex = "1.0.3"
+versions.constraint_layout = "1.1.0"
+versions.arouter = "1.3.1"
+versions.arouter_compiler = "1.1.4"
+versions.dagger = "2.15"
+versions.dagger_compiler = "2.15"
+
+def apis = [:]
+
+def support = [:]
+support.annotations = "com.android.support:support-annotations:$versions.support"
+support.app_compat = "com.android.support:appcompat-v7:$versions.support"
+support.v13 = "com.android.support:support-v13:$versions.support"
+support.percent = "com.android.support:percent:$versions.support"
+support.recyclerview = "com.android.support:recyclerview-v7:$versions.support"
+support.cardview = "com.android.support:cardview-v7:$versions.support"
+support.design = "com.android.support:design:$versions.support"
+support.v4 = "com.android.support:support-v4:$versions.support"
+support.core_utils = "com.android.support:support-core-utils:$versions.support"
+support.multidex = "com.android.support:multidex:$versions.multidex"
+apis.support = support
+
+apis.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+apis.arouter = "com.alibaba:arouter-api:$versions.arouter"
+apis.arouter_compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler"
+apis.dagger = "com.google.dagger:dagger:$versions.dagger"
+apis.dagger_compiler = "com.google.dagger:dagger-compiler:$versions.dagger_compiler"
+ext.apis = apis

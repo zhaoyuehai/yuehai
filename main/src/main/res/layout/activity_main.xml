@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:mContext=".ui.MainActivity">
+
+    <RadioGroup
+        android:id="@+id/main_bottom_rg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gap_45"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/main_home_rb"
+            style="@style/main_bottom_rb_style"
+            android:checked="false"
+            android:drawableTop="@drawable/main_home_btn_selector"
+            android:text="@string/homepage" />
+
+        <RadioButton
+            android:id="@+id/main_category_rb"
+            style="@style/main_bottom_rb_style"
+            android:drawableTop="@drawable/main_category_btn_selector"
+            android:text="@string/category" />
+
+        <RadioButton
+            android:id="@+id/main_channel_rb"
+            style="@style/main_bottom_rb_style"
+            android:drawableTop="@drawable/main_evaluate_btn_selector"
+            android:text="@string/channel" />
+
+        <RadioButton
+            android:id="@+id/main_car_rb"
+            style="@style/main_bottom_rb_style"
+            android:drawableTop="@drawable/main_car_btn_selector"
+            android:text="@string/car" />
+
+        <RadioButton
+            android:id="@+id/main_center_rb"
+            style="@style/main_bottom_rb_style"
+            android:drawableTop="@drawable/main_center_btn_selector"
+            android:text="@string/center" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/rb_top_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/min_gap_0.5"
+        android:layout_above="@+id/main_bottom_rg"
+        android:background="@color/bg_gray2" />
+
+    <FrameLayout
+        android:id="@+id/main_content_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rb_top_line" />
+
+</RelativeLayout>

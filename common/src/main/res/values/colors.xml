@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <!--主题蓝  主题红 CP-->
+    <color name="blue">#00A2E8</color>
+    <color name="blue_dark">#0688C1</color>
+    <color name="blue_light">#57C8F9</color>
+    <color name="red">#ff3c00</color>
+    <color name="red_light">#FF3030</color>
+    <color name="text_color">#333333</color>
+
+    <color name="bg_gray">#F1F2F6</color>
+    <color name="bg_gray0">#dbdbdb</color>
+    <color name="bg_gray2">#f3f4f9</color>
+    <color name="bg_gray3">#f8f8f8</color>
+    <color name="line_gray">#AAAAAA</color>
+    <color name="black_light">#7A7A7A</color>
+    <!--标题栏的颜色-->
+    <color name="colorPrimary">@color/blue</color>
+    <!--状态栏的颜色-->
+    <color name="colorPrimaryDark">@color/blue_dark</color>
+    <!--控件的选中颜色，即checked或selected状态的颜色。-->
+    <color name="colorAccent">@color/blue_light</color>
+</resources>

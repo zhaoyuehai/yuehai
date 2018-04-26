@@ -1,0 +1,68 @@
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+android {
+    compileSdkVersion build_versions.compile_sdk_version
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk_version
+        targetSdkVersion build_versions.target_sdk_version
+        versionCode app_versions.versionCode
+        versionName app_versions.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            //是否zip对齐
+            zipAlignEnabled false
+            //移除无用的resource文件
+            shrinkResources false
+            //混淆
+            minifyEnabled false
+        }
+        debug {
+            //是否zip对齐
+            zipAlignEnabled false
+            //移除无用的resource文件
+            shrinkResources false
+            //混淆
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                //集成开发模式下，使用默认的清单文件，删除debug文件夹
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(':common')
+    annotationProcessor apis.arouter_compiler
+    //单元测试
+    implementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

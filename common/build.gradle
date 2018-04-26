@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion build_versions.compile_sdk_version
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk_version
+        targetSdkVersion build_versions.target_sdk_version
+        versionCode app_versions.versionCode
+        versionName app_versions.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    //api 完全等同于compile指令，没区别，你将所有的compile改成api，完全没有错。
+    //implement 使用了该命令编译的依赖，对该项目有依赖的项目将无法访问到使用该命令编译的依赖中的任何程序。
+    //          也就是将该依赖隐藏在内部，而不对外部公开。
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api apis.support.annotations
+    api apis.support.app_compat
+    api apis.support.v13
+    api apis.support.percent
+    api apis.support.recyclerview
+//    api apis.support.cardview
+    api apis.support.design
+    api apis.support.v4
+    api apis.constraint_layout
+    //ARouter
+    api apis.arouter
+    //dagger2
+    api apis.dagger
+}

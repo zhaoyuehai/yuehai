@@ -45,4 +45,7 @@ dependencies {
     api apis.arouter
     //dagger2
     api apis.dagger
+    //eventbus
+    api apis.eventbus
+
 }

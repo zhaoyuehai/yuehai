@@ -2,6 +2,7 @@ package com.yuehai.android.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,11 +17,13 @@ import android.view.ViewGroup;
 
 public abstract class BaseFragment extends Fragment {
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(getViewResource(), container, false);
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends View> T findViewById(@IdRes int id) {
         if (null == getView()) return null;
         return getView().findViewById(id);
@@ -31,9 +34,14 @@ public abstract class BaseFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         init(savedInstanceState);
+        attachView();
     }
 
+    public abstract void attachView();
+
+    @LayoutRes
     protected abstract int getViewResource();
 
     protected abstract void init(Bundle savedInstanceState);
+
 }

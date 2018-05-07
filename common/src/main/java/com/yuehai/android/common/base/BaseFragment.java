@@ -10,13 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 /**
  * Fragment基类
  * Created by 月海 on 2018/4/20.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T1 extends BasePresenter> extends Fragment implements BaseView {
 
+    @Inject
+    protected T1 mPresenter;
+
+    protected abstract void initInject();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,12 +35,12 @@ public abstract class BaseFragment extends Fragment {
         return getView().findViewById(id);
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init(savedInstanceState);
+        initInject();
         attachView();
+        init(savedInstanceState);
     }
 
     public abstract void attachView();

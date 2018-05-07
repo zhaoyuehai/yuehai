@@ -47,5 +47,10 @@ dependencies {
     api apis.dagger
     //eventbus
     api apis.eventbus
+    //retrofit2
+    api apis.retrofit
+    api apis.retrofit_converter_gson
+    api apis.retrofit_adapter_rxjava
 
+    annotationProcessor apis.dagger_compiler
 }

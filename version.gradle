@@ -31,6 +31,7 @@ versions.arouter_compiler = "1.1.4"
 versions.dagger = "2.15"
 versions.dagger_compiler = "2.15"
 versions.eventbus = "3.1.1"
+versions.retrofit = "2.4.0"
 
 def apis = [:]
 
@@ -53,4 +54,9 @@ apis.arouter_compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler
 apis.dagger = "com.google.dagger:dagger:$versions.dagger"
 apis.dagger_compiler = "com.google.dagger:dagger-compiler:$versions.dagger_compiler"
 apis.eventbus = "org.greenrobot:eventbus:$versions.eventbus"
+apis.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+apis.retrofit_converter_gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+apis.retrofit_adapter_rxjava = "com.squareup.retrofit2:adapter-rxjava:$versions.retrofit"
+//apis.retrofit_converter_scalars = "com.squareup.retrofit2:converter-scalars:$versions.retrofit"
+//api 'com.squareup.okhttp3:logging-interceptor:3.5.0'
 ext.apis = apis

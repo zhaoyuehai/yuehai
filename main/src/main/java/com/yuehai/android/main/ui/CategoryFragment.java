@@ -17,15 +17,23 @@ import com.yuehai.android.main.contract.CategoryContract;
 
 public class CategoryFragment extends BaseFragment implements View.OnClickListener, CategoryContract.CategoryView {
     @Override
+    public void attachView() {
+
+    }
+    @Override
+    protected void initInject() {
+
+    }
+    @Override
     protected int getViewResource() {
         return R.layout.fragment_category;
     }
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        TextView tv1 = findViewById(R.id.tv1);
-        TextView tv2 = findViewById(R.id.tv2);
-        TextView tv3 = findViewById(R.id.tv3);
+        TextView tv1 = (TextView) findViewById(R.id.tv1);
+        TextView tv2 = (TextView) findViewById(R.id.tv2);
+        TextView tv3 = (TextView) findViewById(R.id.tv3);
         tv1.setText("startActivity(new Intent(getApplication(),SettingActivity.class));");
         tv2.setText("ARouter.getInstance().build(\"/main/setting\").navigation();");
         tv1.setOnClickListener(this);

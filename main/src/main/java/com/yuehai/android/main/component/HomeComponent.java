@@ -1,6 +1,6 @@
 package com.yuehai.android.main.component;
 
 //@Component
-//public interface HomeComponent {
+//public interface MainComponent {
 //    void inject(HomeFragment homeFragment);
 //}

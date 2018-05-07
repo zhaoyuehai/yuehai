@@ -14,13 +14,23 @@ import com.yuehai.android.main.contract.CenterContract;
 
 public class CenterFragment extends BaseFragment implements CenterContract.CenterView {
     @Override
+    protected void initInject() {
+
+    }
+
+    @Override
+    public void attachView() {
+
+    }
+
+    @Override
     protected int getViewResource() {
         return R.layout.fragment_home;
     }
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        TextView home_tv = findViewById(R.id.home_tv);
+        TextView home_tv = (TextView) findViewById(R.id.home_tv);
         home_tv.setText("个人中心");
     }
 

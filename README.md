@@ -29,7 +29,7 @@
             }`
     在每个模块组件都要定义，为了让ARouter知道这个模块用来区别于其他模块的名字是什么。
     
-    `compile 'com.alibaba:arouter-api:1.3.1'`
+    `compile 'com.alibaba:arouter-mainApi:1.3.1'`
     只需要在公共common组件中定义即可。
     
     `annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'`

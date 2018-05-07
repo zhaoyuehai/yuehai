@@ -3,7 +3,6 @@ package com.yuehai.android.main.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
 
@@ -63,7 +62,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         if (checkedId == R.id.main_home_rb) {
             String HOME_FRAGMENT_TAG = "home";
-            Fragment home = getSupportFragmentManager().findFragmentByTag(HOME_FRAGMENT_TAG);
+            android.support.v4.app.Fragment home = getSupportFragmentManager().findFragmentByTag(HOME_FRAGMENT_TAG);
             if (home == null || home.isHidden()) {
                 if (home == null) {
                     addFragment(new HomeFragment(), R.id.main_content_fl, HOME_FRAGMENT_TAG);
@@ -73,7 +72,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
             }
         } else if (checkedId == R.id.main_category_rb) {
             String CATEGORY_FRAGMENT_TAG = "category";
-            Fragment category = getSupportFragmentManager().findFragmentByTag(CATEGORY_FRAGMENT_TAG);
+            android.support.v4.app.Fragment category = getSupportFragmentManager().findFragmentByTag(CATEGORY_FRAGMENT_TAG);
             if (category == null || category.isHidden()) {
                 if (category == null) {
                     addFragment(new CategoryFragment(), R.id.main_content_fl, CATEGORY_FRAGMENT_TAG);
@@ -83,7 +82,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
             }
         } else if (checkedId == R.id.main_channel_rb) {
             String CHANNEL_FRAGMENT_TAG = "channel";
-            Fragment channel = getSupportFragmentManager().findFragmentByTag(CHANNEL_FRAGMENT_TAG);
+            android.support.v4.app.Fragment channel = getSupportFragmentManager().findFragmentByTag(CHANNEL_FRAGMENT_TAG);
             if (channel == null || channel.isHidden()) {
                 if (channel == null) {
                     addFragment(new ChannelFragment(), R.id.main_content_fl, CHANNEL_FRAGMENT_TAG);
@@ -93,7 +92,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
             }
         } else if (checkedId == R.id.main_car_rb) {
             String CAR_FRAGMENT_TAG = "car";
-            Fragment car = getSupportFragmentManager().findFragmentByTag(CAR_FRAGMENT_TAG);
+            android.support.v4.app.Fragment car = getSupportFragmentManager().findFragmentByTag(CAR_FRAGMENT_TAG);
             if (car == null || car.isHidden()) {
                 if (car == null) {
                     addFragment(new CarFragment(), R.id.main_content_fl, CAR_FRAGMENT_TAG);
@@ -103,7 +102,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
             }
         } else if (checkedId == R.id.main_center_rb) {
             String CENTER_FRAGMENT_TAG = "center";
-            Fragment center = getSupportFragmentManager().findFragmentByTag(CENTER_FRAGMENT_TAG);
+            android.support.v4.app.Fragment center = getSupportFragmentManager().findFragmentByTag(CENTER_FRAGMENT_TAG);
             if (center == null || center.isHidden()) {
                 if (center == null) {
                     addFragment(new CenterFragment(), R.id.main_content_fl, CENTER_FRAGMENT_TAG);

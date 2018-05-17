@@ -17,10 +17,6 @@ import com.yuehai.android.main.contract.CategoryContract;
 
 public class CategoryFragment extends BaseFragment implements View.OnClickListener, CategoryContract.CategoryView {
     @Override
-    public void attachView() {
-
-    }
-    @Override
     protected void initInject() {
 
     }
@@ -56,7 +52,7 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
-    public void showErrorView() {
+    public void showErrorView(String msg) {
 
     }
 

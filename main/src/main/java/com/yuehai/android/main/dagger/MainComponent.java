@@ -2,6 +2,7 @@ package com.yuehai.android.main.dagger;
 
 import com.yuehai.android.common.dagger.ApiModule;
 import com.yuehai.android.main.api.MainApi;
+import com.yuehai.android.main.ui.ChannelFragment;
 import com.yuehai.android.main.ui.HomeFragment;
 
 import dagger.Component;
@@ -12,5 +13,7 @@ public interface MainComponent {
     MainApi getMainApi();
 
     void inject(HomeFragment homeFragment);
+
+    void inject(ChannelFragment channelFragment);
 
 }

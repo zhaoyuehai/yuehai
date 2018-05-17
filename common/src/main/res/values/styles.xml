@@ -11,8 +11,6 @@
         <!--控件的选中颜色，即checked或selected状态的颜色。-->
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:background">@color/bg_gray</item>
-
         <item name="android:textColor">@color/text_color</item>
         <!--<item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>-->
     </style>

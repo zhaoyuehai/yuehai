@@ -8,8 +8,9 @@ import com.yuehai.android.main.contract.HomeContract;
 
 import javax.inject.Inject;
 
-import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class HomePresenter extends RxPresenter<HomeContract.View> implements HomeContract.Presenter<HomeContract.View> {
 
@@ -22,23 +23,25 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
 
     @Override
     public void getRecommendList() {
-        Observable<Recommend> fromNetWork = mMainApi.getRecommend(Constant.Gender.MALE);
-        fromNetWork.subscribe(new Subscriber<Recommend>() {
-            @Override
-            public void onCompleted() {
-                System.out.println("......................");
-            }
+        mMainApi.getRecommend(Constant.Gender.MALE)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Recommend>() {
+                    @Override
+                    public void onCompleted() {
+                        System.out.println("......................");
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                System.out.println("......................");
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println("......................");
+                    }
 
-            @Override
-            public void onNext(Recommend recommend) {
-                System.out.println("......................");
-            }
-        });
+                    @Override
+                    public void onNext(Recommend recommend) {
+                        System.out.println("......................");
+                    }
+                });
     }
 
 

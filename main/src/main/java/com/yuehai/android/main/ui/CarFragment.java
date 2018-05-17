@@ -19,11 +19,6 @@ public class CarFragment extends BaseFragment implements CarContract.CarView {
     }
 
     @Override
-    public void attachView() {
-
-    }
-
-    @Override
     protected int getViewResource() {
         return R.layout.fragment_home;
     }
@@ -40,7 +35,7 @@ public class CarFragment extends BaseFragment implements CarContract.CarView {
     }
 
     @Override
-    public void showErrorView() {
+    public void showErrorView(String msg) {
 
     }
 

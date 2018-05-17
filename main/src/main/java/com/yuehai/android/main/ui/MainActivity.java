@@ -3,7 +3,9 @@ package com.yuehai.android.main.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -26,9 +28,10 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
 
     private void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-        RadioGroup rg = findViewById(R.id.main_bottom_rg);
+        RadioGroup rg= findViewById(R.id.main_bottom_rg);
         rg.setOnCheckedChangeListener(this);
-        rg.check(R.id.main_home_rb);
+        RadioButton rb = findViewById(R.id.main_home_rb);
+        rb.setChecked(true);
     }
 
 
@@ -62,7 +65,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         if (checkedId == R.id.main_home_rb) {
             String HOME_FRAGMENT_TAG = "home";
-            android.support.v4.app.Fragment home = getSupportFragmentManager().findFragmentByTag(HOME_FRAGMENT_TAG);
+            Fragment home = getSupportFragmentManager().findFragmentByTag(HOME_FRAGMENT_TAG);
             if (home == null || home.isHidden()) {
                 if (home == null) {
                     addFragment(new HomeFragment(), R.id.main_content_fl, HOME_FRAGMENT_TAG);
@@ -72,7 +75,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
             }
         } else if (checkedId == R.id.main_category_rb) {
             String CATEGORY_FRAGMENT_TAG = "category";
-            android.support.v4.app.Fragment category = getSupportFragmentManager().findFragmentByTag(CATEGORY_FRAGMENT_TAG);
+            Fragment category = getSupportFragmentManager().findFragmentByTag(CATEGORY_FRAGMENT_TAG);
             if (category == null || category.isHidden()) {
                 if (category == null) {
                     addFragment(new CategoryFragment(), R.id.main_content_fl, CATEGORY_FRAGMENT_TAG);

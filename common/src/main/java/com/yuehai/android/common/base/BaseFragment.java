@@ -43,7 +43,18 @@ public abstract class BaseFragment<T1 extends BasePresenter> extends Fragment im
         init(savedInstanceState);
     }
 
-    public abstract void attachView();
+
+    private void attachView() {
+        if (mPresenter != null)
+            mPresenter.attachView(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mPresenter != null)
+            mPresenter.detachView();
+    }
 
     @LayoutRes
     protected abstract int getViewResource();

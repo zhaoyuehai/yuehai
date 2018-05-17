@@ -1,6 +1,7 @@
 package com.yuehai.android.main.api;
 
 import com.yuehai.android.main.bean.Recommend;
+import com.yuehai.android.main.bean.TransResult;
 
 import retrofit2.Retrofit;
 import rx.Observable;
@@ -24,5 +25,11 @@ public class MainApi {
 
     public Observable<Recommend> getRecommend(String gender) {
         return mainApiService.getRecommend(gender);
+    }
+
+    public Observable<TransResult> trans(String from,
+                                         String msg,
+                                         String to) {
+        return mainApiService.trans(from, msg, to);
     }
 }

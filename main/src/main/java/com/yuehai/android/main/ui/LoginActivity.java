@@ -144,7 +144,7 @@ public class LoginActivity extends ToolbarAppCompatActivity implements LoginCont
     }
 
     @Override
-    public void showErrorView() {
+    public void showErrorView(String msg) {
 
     }
 

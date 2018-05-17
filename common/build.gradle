@@ -51,6 +51,7 @@ dependencies {
     api apis.retrofit
     api apis.retrofit_converter_gson
     api apis.retrofit_adapter_rxjava
-
+    api apis.rxjava
+    api apis.rxandroid
     annotationProcessor apis.dagger_compiler
 }

@@ -4,7 +4,7 @@ public interface BaseView {
 
     void changeTheme(int themeType);
 
-    void showErrorView();
+    void showErrorView(String msg);
 
     void showEmptyView();
 

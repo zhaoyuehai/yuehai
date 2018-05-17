@@ -19,11 +19,6 @@ public class CenterFragment extends BaseFragment implements CenterContract.Cente
     }
 
     @Override
-    public void attachView() {
-
-    }
-
-    @Override
     protected int getViewResource() {
         return R.layout.fragment_home;
     }
@@ -40,7 +35,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.Cente
     }
 
     @Override
-    public void showErrorView() {
+    public void showErrorView(String msg) {
 
     }
 

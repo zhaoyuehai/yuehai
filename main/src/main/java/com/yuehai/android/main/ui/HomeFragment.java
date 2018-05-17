@@ -1,11 +1,11 @@
 package com.yuehai.android.main.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.yuehai.android.common.base.BaseFragment;
 import com.yuehai.android.common.dagger.ApiModule;
 import com.yuehai.android.main.R;
-import com.yuehai.android.main.api.MainApi;
 import com.yuehai.android.main.contract.HomeContract;
 import com.yuehai.android.main.dagger.DaggerMainComponent;
 import com.yuehai.android.main.dagger.MainApiModule;
@@ -13,10 +13,9 @@ import com.yuehai.android.main.presenter.HomePresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * 首页
@@ -24,8 +23,6 @@ import javax.inject.Inject;
  */
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
-    @Inject
-    MainApi mainApi;
 
     @Override
     protected void initInject() {
@@ -43,13 +40,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        Log.e("yuehai","home----init");
         EventBus.getDefault().register(this);
-        EventBus.getDefault().post("GetRecommendEvent");
+        EventBus.getDefault().post("首页");
     }
 
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void GetRecommendEvent(String event) {
+//        TextView home_tv = findViewById(R.id.home_tv);
+//        home_tv.setText(event);
         mPresenter.getRecommendList();
     }
 
@@ -59,7 +59,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showErrorView() {
+    public void showErrorView(String msg) {
 
     }
 
@@ -79,16 +79,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public final void attachView() {
-        if (mPresenter != null)
-            mPresenter.attachView(this);
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mPresenter != null)
-            mPresenter.detachView();
         EventBus.getDefault().unregister(this);
     }
 }

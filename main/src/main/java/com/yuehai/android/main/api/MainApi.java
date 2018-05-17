@@ -27,6 +27,9 @@ public class MainApi {
         return mainApiService.getRecommend(gender);
     }
 
+    /**
+     * 翻译接口
+     */
     public Observable<TransResult> trans(String from,
                                          String msg,
                                          String to) {

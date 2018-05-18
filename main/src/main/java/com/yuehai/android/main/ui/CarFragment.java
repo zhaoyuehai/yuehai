@@ -48,4 +48,9 @@ public class CarFragment extends BaseFragment implements CarContract.CarView {
     public void showLoadingView() {
 
     }
+
+    @Override
+    public void dismissLoadingView() {
+
+    }
 }

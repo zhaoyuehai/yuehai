@@ -10,4 +10,6 @@ public interface BaseView {
 
     void showLoadingView();
 
+    void dismissLoadingView();
+
 }

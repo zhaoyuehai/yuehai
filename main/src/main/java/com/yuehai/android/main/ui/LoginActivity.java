@@ -159,6 +159,11 @@ public class LoginActivity extends ToolbarAppCompatActivity implements LoginCont
     }
 
     @Override
+    public void dismissLoadingView() {
+
+    }
+
+    @Override
     protected String getToolbarTitle() {
         return "登录";
     }

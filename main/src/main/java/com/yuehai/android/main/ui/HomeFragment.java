@@ -1,11 +1,15 @@
 package com.yuehai.android.main.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.yuehai.android.common.base.BaseFragment;
 import com.yuehai.android.common.dagger.ApiModule;
 import com.yuehai.android.main.R;
+import com.yuehai.android.main.bean.UserBean;
+import com.yuehai.android.main.bean.UsersBean;
 import com.yuehai.android.main.contract.HomeContract;
 import com.yuehai.android.main.dagger.DaggerMainComponent;
 import com.yuehai.android.main.dagger.MainApiModule;
@@ -24,6 +28,8 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void initInject() {
         DaggerMainComponent.builder()
@@ -40,17 +46,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        Log.e("yuehai","home----init");
+        Log.e("yuehai", "home----init");
         EventBus.getDefault().register(this);
-        EventBus.getDefault().post("首页");
+        EventBus.getDefault().post(1);
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void GetRecommendEvent(String event) {
+    public void GetRecommendEvent(Integer event) {
 //        TextView home_tv = findViewById(R.id.home_tv);
 //        home_tv.setText(event);
-        mPresenter.getRecommendList();
+        mPresenter.findUserById(event);
     }
 
     @Override
@@ -70,12 +76,40 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void showLoadingView() {
+        if (progressDialog == null)
+            progressDialog = new ProgressDialog(getContext());
+        progressDialog.show();
+    }
 
+    @Override
+    public void dismissLoadingView() {
+        if (progressDialog != null)
+            progressDialog.dismiss();
     }
 
     @Override
     public void showRecommendList(List list) {
 
+    }
+
+    @Override
+    public void showUsers(UsersBean users) {
+        TextView home_tv = findViewById(R.id.home_tv);
+        if (users.getCode() == 0) {
+            home_tv.setText(users.getList().get(0).toString());
+        } else {
+            home_tv.setText(users.getMessage());
+        }
+    }
+
+    @Override
+    public void showUser(UserBean user) {
+        TextView home_tv = findViewById(R.id.home_tv);
+            if (user.getCode() == 0) {
+            home_tv.setText(user.getUser().toString());
+        } else {
+            home_tv.setText(user.getMessage());
+        }
     }
 
     @Override

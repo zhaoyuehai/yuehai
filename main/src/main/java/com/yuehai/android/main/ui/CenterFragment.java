@@ -48,4 +48,9 @@ public class CenterFragment extends BaseFragment implements CenterContract.Cente
     public void showLoadingView() {
 
     }
+
+    @Override
+    public void dismissLoadingView() {
+
+    }
 }

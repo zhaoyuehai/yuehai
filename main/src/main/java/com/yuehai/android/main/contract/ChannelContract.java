@@ -13,8 +13,6 @@ public class ChannelContract {
 
         void setButtonEnable(boolean enable);
 
-        void dismissLoadingView();
-
         void showResult(TransResult transResult);
     }
 

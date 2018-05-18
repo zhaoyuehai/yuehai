@@ -65,4 +65,9 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
     public void showLoadingView() {
 
     }
+
+    @Override
+    public void dismissLoadingView() {
+
+    }
 }

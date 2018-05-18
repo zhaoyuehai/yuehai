@@ -4,6 +4,8 @@ import com.yuehai.android.common.base.RxPresenter;
 import com.yuehai.android.common.config.Constant;
 import com.yuehai.android.main.api.MainApi;
 import com.yuehai.android.main.bean.Recommend;
+import com.yuehai.android.main.bean.UserBean;
+import com.yuehai.android.main.bean.UsersBean;
 import com.yuehai.android.main.contract.HomeContract;
 
 import javax.inject.Inject;
@@ -40,6 +42,54 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                     @Override
                     public void onNext(Recommend recommend) {
                         System.out.println("......................");
+                    }
+                });
+    }
+
+    @Override
+    public void getUserList() {
+        mView.showLoadingView();
+        mMainApi.getUserList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UsersBean>() {
+                    @Override
+                    public void onCompleted() {
+                        mView.dismissLoadingView();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.dismissLoadingView();
+                    }
+
+                    @Override
+                    public void onNext(UsersBean users) {
+                        mView.showUsers(users);
+                    }
+                });
+    }
+
+    @Override
+    public void findUserById(int id) {
+        mView.showLoadingView();
+        mMainApi.findUserById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UserBean>() {
+                    @Override
+                    public void onCompleted() {
+                        mView.dismissLoadingView();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.dismissLoadingView();
+                    }
+
+                    @Override
+                    public void onNext(UserBean user) {
+                        mView.showUser(user);
                     }
                 });
     }

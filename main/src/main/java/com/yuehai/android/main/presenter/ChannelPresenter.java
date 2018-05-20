@@ -11,7 +11,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class ChannelPresenter extends RxPresenter<ChannelContract.View> implements ChannelContract.Presenter<ChannelContract.View> {
+public class ChannelPresenter extends RxPresenter<ChannelContract.View> implements ChannelContract.Presenter{
 
     private MainApi mainApi;
 

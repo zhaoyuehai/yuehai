@@ -1,10 +1,12 @@
 package com.yuehai.android.main.api;
 
+import com.yuehai.android.main.bean.BaseBean2;
 import com.yuehai.android.main.bean.Recommend;
 import com.yuehai.android.main.bean.TransResult;
 import com.yuehai.android.main.bean.UserBean;
 import com.yuehai.android.main.bean.UsersBean;
 
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import rx.Observable;
 
@@ -50,5 +52,9 @@ public class MainApi {
      */
     public Observable<UserBean> findUserById(int id) {
         return mainApiService.findUserById(id);
+    }
+
+    public Observable<BaseBean2> addUser(RequestBody requestBody) {
+        return mainApiService.addUser(requestBody);
     }
 }

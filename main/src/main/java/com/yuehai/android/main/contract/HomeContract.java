@@ -18,14 +18,23 @@ public class HomeContract {
         void showUsers(UsersBean users);
 
         void showUser(UserBean user);
+
+        void postShowUsers(UsersBean users);
     }
 
-    public interface Presenter<T> extends BasePresenter<T> {
+    public interface Presenter extends BasePresenter<HomeContract.View> {
         void getRecommendList();
 
         void getUserList();
 
+        void getUserList2();
+
+        void getUserList3();
+
         void findUserById(int id);
+
+        void addUser();
+
     }
 
 }

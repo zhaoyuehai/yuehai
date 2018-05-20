@@ -66,7 +66,7 @@ public class UsersBean extends BaseBean2 {
 
         @Override
         public String toString() {
-            return "userName:" + userName + "\npassword:" + password + "\nmobile:" + mobile;
+            return "id:" + id + "userName:" + userName + "\npassword:" + password + "\nmobile:" + mobile;
         }
     }
 }

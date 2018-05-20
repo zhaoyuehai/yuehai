@@ -1,7 +1,9 @@
 package com.yuehai.android.main.ui;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -14,10 +16,9 @@ import com.yuehai.android.main.contract.HomeContract;
 import com.yuehai.android.main.dagger.DaggerMainComponent;
 import com.yuehai.android.main.dagger.MainApiModule;
 import com.yuehai.android.main.presenter.HomePresenter;
+import com.yuehai.android.main.ui.adapter.HomeRecyclerViewAdapter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -28,7 +29,9 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
 
-    private ProgressDialog progressDialog;
+    private SwipeRefreshLayout srl;
+    private RecyclerView rcv;
+    private HomeRecyclerViewAdapter adapter;
 
     @Override
     protected void initInject() {
@@ -39,6 +42,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 .inject(this);
     }
 
+
     @Override
     protected int getViewResource() {
         return R.layout.fragment_home;
@@ -46,18 +50,33 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        initView();
         Log.e("yuehai", "home----init");
-        EventBus.getDefault().register(this);
-        EventBus.getDefault().post(1);
+//        EventBus.getDefault().register(this);
+//        EventBus.getDefault().post(1);
+        mPresenter.getUserList();
+    }
+
+    private void initView() {
+        srl = findViewById(R.id.srl);
+        rcv = findViewById(R.id.rcv);
+        rcv.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new HomeRecyclerViewAdapter(getContext());
+        rcv.setAdapter(adapter);
+        findViewById(R.id.btn).setOnClickListener(view -> mPresenter.addUser());
+        srl.setOnRefreshListener(() -> {
+            adapter.clear();
+            mPresenter.getUserList();
+        });
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void GetRecommendEvent(Integer event) {
+//    @Subscribe(threadMode = ThreadMode.ASYNC)
+//    public void GetRecommendEvent(Integer event) {
 //        TextView home_tv = findViewById(R.id.home_tv);
 //        home_tv.setText(event);
-        mPresenter.findUserById(event);
-    }
+//        mPresenter.findUserById(event);
+//    }
 
     @Override
     public void changeTheme(int themeType) {
@@ -76,15 +95,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void showLoadingView() {
-        if (progressDialog == null)
-            progressDialog = new ProgressDialog(getContext());
-        progressDialog.show();
+        srl.post(() -> srl.setRefreshing(true));
     }
 
     @Override
     public void dismissLoadingView() {
-        if (progressDialog != null)
-            progressDialog.dismiss();
+        srl.post(() -> srl.setRefreshing(false));
     }
 
     @Override
@@ -94,22 +110,25 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void showUsers(UsersBean users) {
-        TextView home_tv = findViewById(R.id.home_tv);
-        if (users.getCode() == 0) {
-            home_tv.setText(users.getList().get(0).toString());
-        } else {
-            home_tv.setText(users.getMessage());
-        }
+        adapter.addData(users.getList());
     }
 
     @Override
     public void showUser(UserBean user) {
         TextView home_tv = findViewById(R.id.home_tv);
-            if (user.getCode() == 0) {
+        if (user.getCode() == 0) {
             home_tv.setText(user.getUser().toString());
         } else {
             home_tv.setText(user.getMessage());
         }
+    }
+
+    @Override
+    public void postShowUsers(UsersBean users) {
+        if (users == null) return;
+        rcv.post(() -> {
+            showUsers(users);
+        });
     }
 
     @Override

@@ -16,7 +16,7 @@ public class ChannelContract {
         void showResult(TransResult transResult);
     }
 
-    public interface Presenter<T> extends BasePresenter<T> {
+    public interface Presenter extends BasePresenter<ChannelContract.View> {
 
         void trans(String msg);
 

@@ -61,7 +61,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         srl = findViewById(R.id.srl);
         rcv = findViewById(R.id.rcv);
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new HomeRecyclerViewAdapter(getContext());
+        adapter = new HomeRecyclerViewAdapter();
         rcv.setAdapter(adapter);
         findViewById(R.id.btn).setOnClickListener(view -> mPresenter.addUser());
         srl.setOnRefreshListener(() -> {
@@ -110,7 +110,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void showUsers(UsersBean users) {
-        adapter.addData(users.getList());
+        adapter.addAll(users.getList());
     }
 
     @Override

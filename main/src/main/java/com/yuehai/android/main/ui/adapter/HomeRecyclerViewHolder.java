@@ -1,22 +1,23 @@
 package com.yuehai.android.main.ui.adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.yuehai.android.common.widget.BaseViewHolder;
 import com.yuehai.android.main.R;
 import com.yuehai.android.main.bean.UsersBean;
 
-public class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
+public class HomeRecyclerViewHolder extends BaseViewHolder<UsersBean.User> {
+    private TextView textView;
 
-    private TextView tv;
-
-    HomeRecyclerViewHolder(View itemView) {
-        super(itemView);
-        tv = itemView.findViewById(R.id.tv);
+    public HomeRecyclerViewHolder(ViewGroup parent) {
+        super(parent, R.layout.recycler_view_item);
+        textView = $(R.id.tv);
     }
 
-    public void setData(UsersBean.User user) {
-        tv.setText(user.toString());
+    @Override
+    public void setData(UsersBean.User data) {
+        super.setData(data);
+        textView.setText(data.toString());
     }
 }

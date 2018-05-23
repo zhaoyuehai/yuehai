@@ -13,7 +13,7 @@ import dagger.Component;
 //
 //
 //
-//1.依赖BaseComponent, 注入ApiManager实例
+//1.注入ApiManager（通过依赖BaseComponent）
 //2.注入Presenter
 //
 @ActivityScope

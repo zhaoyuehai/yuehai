@@ -1,12 +1,12 @@
 package com.yuehai.android.common.api;
 
 import com.yuehai.android.common.base.BaseApplication;
-import com.yuehai.android.common.config.Constants;
 import com.yuehai.android.common.bean.BaseBean2;
 import com.yuehai.android.common.bean.Recommend;
 import com.yuehai.android.common.bean.TransResult;
 import com.yuehai.android.common.bean.UserBean;
 import com.yuehai.android.common.bean.UsersBean;
+import com.yuehai.android.common.config.Constants;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +19,9 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
+/**
+ * 是通过BaseComponent和BaseApplication实现全局的单例
+ */
 public class ApiManager {
 
     private static ApiService apiService;

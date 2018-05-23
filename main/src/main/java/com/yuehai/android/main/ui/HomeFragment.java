@@ -1,9 +1,6 @@
 package com.yuehai.android.main.ui;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +32,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private RecyclerView rcv;
     private HomeRecyclerViewAdapter adapter;
 
+    //DaggerMainComponent注入 HomePresenter实例
+    //      HomePresenter需要的ApiManager参数也由DaggerMainComponent提供（并且是全局的单例ApiManager）
     @Override
     protected void initInject() {
         DaggerMainComponent.builder()
@@ -57,26 +56,24 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mPresenter.getUserList();
     }
 
+    private int x = 0;
+
     private void initView() {
         srl = findViewById(R.id.srl);
         rcv = findViewById(R.id.rcv);
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomeRecyclerViewAdapter();
         rcv.setAdapter(adapter);
-        findViewById(R.id.btn).setOnClickListener(view -> mPresenter.addUser());
+        findViewById(R.id.btn).setOnClickListener(view -> {
+            x++;
+            EventBus.getDefault().post("第" + x + "次消息");
+//                mPresenter.addUser()
+
+        });
         srl.setOnRefreshListener(() -> {
             adapter.clear();
             mPresenter.getUserList();
         });
-        HandlerThread sss = new HandlerThread("sss");
-        sss.start();
-        Handler handler = new Handler(sss.getLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-            }
-        };
-
     }
 
 

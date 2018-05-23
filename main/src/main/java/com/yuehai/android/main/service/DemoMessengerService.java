@@ -24,31 +24,26 @@ public class DemoMessengerService extends Service {
     private class MyHandle extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            Log.e("service--what->", String.valueOf(msg.what));
             switch (msg.what) {
                 case Constants.MSG_FROM_CLIENT:
                     //获取客服端发来的消息
-                    Log.e("service--bundle->", msg.getData().getString(Constants.MSG_KEY));
-                    //给客户端回复消息
+                    String msgStr = msg.getData().getString(Constants.MSG_KEY);
+                    Log.e("客户端发来:msg-$$->", msgStr);
+                    //给客户端回复消息（此处必须用Message带来的Messenger = msg.replyTo）
                     Bundle bundle = new Bundle();
-                    bundle.putString(Constants.MSG_KEY, "Hi! Client.");
-                    replyMessageToClient(bundle, Constants.MSG_FROM_SERVICE);
+                    bundle.putString(Constants.MSG_KEY, "收到了：" + msgStr);
+                    Message message = Message.obtain(null, Constants.MSG_FROM_SERVICE);
+                    message.setData(bundle);
+                    try {
+                        msg.replyTo.send(message);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     super.handleMessage(msg);
                     break;
             }
-        }
-    }
-
-    private void replyMessageToClient(Bundle bundle, int what) {
-        if (messenger == null) return;
-        Message message = Message.obtain(null, what);
-        message.setData(bundle);
-        try {
-            messenger.send(message);
-        } catch (RemoteException e) {
-            e.printStackTrace();
         }
     }
 

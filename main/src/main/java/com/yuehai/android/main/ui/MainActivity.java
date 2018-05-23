@@ -112,10 +112,9 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
     private class ReplyMessageHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            Log.e("client--what->", String.valueOf(msg.what));
             switch (msg.what) {
                 case Constants.MSG_FROM_SERVICE:
-                    Log.e("client--bundle->", msg.getData().getString(Constants.MSG_KEY));
+                    Log.e("服务端回复msg:-$$->", msg.getData().getString(Constants.MSG_KEY));
                     break;
                 default:
                     super.handleMessage(msg);

@@ -28,7 +28,9 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".ui.SettingActivity" />
 
-        <service android:name=".service.DemoMessengerService"
-            android:process=":DemoMessengerService"/>
+        <service
+            android:name=".service.DemoMessengerService"
+            android:process=":DemoMessengerService" />
+
     </application>
 </manifest>

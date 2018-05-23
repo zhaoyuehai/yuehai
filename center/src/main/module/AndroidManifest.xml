@@ -4,13 +4,13 @@
 
     <application
         android:name="debug.CenterApplication"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="Center组件"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeBase">
+        android:theme="@style/AppThemeBase"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity android:name=".ui.UserInfoActivity">
             <intent-filter>
@@ -19,5 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".ui.service.DemoAIDLService"
+            android:exported="true"
+            android:process=":DemoAIDLService">
+            <intent-filter>
+                <action android:name="com.yuehai.android.center.ui.service.DemoAIDLService" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

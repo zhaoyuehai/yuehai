@@ -13,7 +13,6 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,6 +20,7 @@ import android.widget.RadioGroup;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.yuehai.android.common.base.BaseAppCompatActivity;
 import com.yuehai.android.common.config.Constants;
+import com.yuehai.android.common.util.LogUtils;
 import com.yuehai.android.common.util.ToastUtils;
 import com.yuehai.android.main.R;
 import com.yuehai.android.main.service.DemoMessengerService;
@@ -35,7 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 @Route(path = "/main/main")
 public class MainActivity extends BaseAppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
-    private ServiceConnection serviceConnection;
+    private ServiceConnection messengerConnection;
     private Messenger messenger;
     private Messenger mReplyMessenger;
 
@@ -52,14 +52,13 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
         rg.setOnCheckedChangeListener(this);
         RadioButton rb = findViewById(R.id.main_home_rb);
         rb.setChecked(true);
-
         bindMessengerService();
     }
 
     @Subscribe
     public void sendMessage(String content) {
         if (content == null) return;
-        if (serviceConnection == null) return;
+        if (messengerConnection == null) return;
         Bundle bundle = new Bundle();
         bundle.putString(Constants.MSG_KEY, content);
         sendMessageToService(bundle, Constants.MSG_FROM_CLIENT);
@@ -67,7 +66,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
 
     //绑定服务端的Service
     private void bindMessengerService() {
-        serviceConnection = new ServiceConnection() {
+        messengerConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 //连上服务，用服务端提供的IBinder对象创建一个Messenger,通过这个Messenger就可以向服务端发Message类型的消息了
@@ -76,15 +75,15 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.MSG_KEY, "Hello! This is client.");
                 sendMessageToService(bundle, Constants.MSG_FROM_CLIENT);
+
             }
 
             @Override
             public void onServiceDisconnected(ComponentName componentName) {
-
             }
         };
         Intent intent = new Intent(this, DemoMessengerService.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        bindService(intent, messengerConnection, Context.BIND_AUTO_CREATE);
     }
 
     private void sendMessageToService(Bundle bundle, int what) {
@@ -114,7 +113,7 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case Constants.MSG_FROM_SERVICE:
-                    Log.e("服务端回复msg:-$$->", msg.getData().getString(Constants.MSG_KEY));
+                    LogUtils.e("服务端回复msg:" + msg.getData().getString(Constants.MSG_KEY));
                     break;
                 default:
                     super.handleMessage(msg);
@@ -125,8 +124,8 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
 
     @Override
     protected void onDestroy() {
-        if (serviceConnection != null) {
-            unbindService(serviceConnection);
+        if (messengerConnection != null) {
+            unbindService(messengerConnection);
         }
         EventBus.getDefault().unregister(this);
         super.onDestroy();

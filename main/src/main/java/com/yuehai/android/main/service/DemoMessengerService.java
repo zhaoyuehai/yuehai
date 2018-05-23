@@ -10,9 +10,9 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.yuehai.android.common.config.Constants;
+import com.yuehai.android.common.util.LogUtils;
 
 /**
  * Messenger进程间通信IPC的Demo
@@ -21,14 +21,14 @@ import com.yuehai.android.common.config.Constants;
 public class DemoMessengerService extends Service {
 
     @SuppressLint("HandlerLeak")
-    private class MyHandle extends Handler {
+    private class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case Constants.MSG_FROM_CLIENT:
                     //获取客服端发来的消息
                     String msgStr = msg.getData().getString(Constants.MSG_KEY);
-                    Log.e("客户端发来:msg-$$->", msgStr);
+                    LogUtils.e("客户端发来msg:"+ msgStr);
                     //给客户端回复消息（此处必须用Message带来的Messenger = msg.replyTo）
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.MSG_KEY, "收到了：" + msgStr);
@@ -53,7 +53,7 @@ public class DemoMessengerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         if (messenger == null)
-            messenger = new Messenger(new MyHandle());
+            messenger = new Messenger(new MyHandler());
         return messenger.getBinder();
     }
 }

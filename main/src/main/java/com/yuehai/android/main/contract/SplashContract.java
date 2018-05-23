@@ -1,13 +1,11 @@
 package com.yuehai.android.main.contract;
 
-import com.yuehai.android.common.base.BasePresenter;
-
 public class SplashContract {
 
-    public interface SplashView {
+    public interface View {
     }
 
-    public interface SplashPresenter extends BasePresenter {
+    public interface Presenter {
     }
 
 }

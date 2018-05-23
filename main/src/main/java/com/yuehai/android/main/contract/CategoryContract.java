@@ -1,6 +1,5 @@
 package com.yuehai.android.main.contract;
 
-import com.yuehai.android.common.base.BasePresenter;
 import com.yuehai.android.common.base.BaseView;
 
 /**
@@ -8,10 +7,10 @@ import com.yuehai.android.common.base.BaseView;
  */
 public class CategoryContract {
 
-    public interface CategoryView extends BaseView {
+    public interface View extends BaseView {
     }
 
-    public interface CategoryPresenter extends BasePresenter {
+    public interface Presenter {
     }
 
 }

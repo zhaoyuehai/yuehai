@@ -15,7 +15,7 @@ import com.yuehai.android.main.contract.CategoryContract;
  * Created by 月海 on 2018/4/20.
  */
 
-public class CategoryFragment extends BaseFragment implements View.OnClickListener, CategoryContract.CategoryView {
+public class CategoryFragment extends BaseFragment implements View.OnClickListener, CategoryContract.View {
     @Override
     protected void initInject() {
 

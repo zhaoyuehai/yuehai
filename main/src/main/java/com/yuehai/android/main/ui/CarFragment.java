@@ -12,7 +12,7 @@ import com.yuehai.android.main.contract.CarContract;
  * Created by 月海 on 2018/4/20.
  */
 
-public class CarFragment extends BaseFragment implements CarContract.CarView {
+public class CarFragment extends BaseFragment implements CarContract.View {
     @Override
     protected void initInject() {
 

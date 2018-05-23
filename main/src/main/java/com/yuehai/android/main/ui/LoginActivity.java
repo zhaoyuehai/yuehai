@@ -19,7 +19,7 @@ import com.yuehai.android.main.contract.LoginContract;
 /**
  * 登录
  */
-public class LoginActivity extends ToolbarAppCompatActivity implements LoginContract.LoginView {
+public class LoginActivity extends ToolbarAppCompatActivity implements LoginContract.View {
 
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{

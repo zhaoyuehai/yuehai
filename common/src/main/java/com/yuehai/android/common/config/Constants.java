@@ -5,7 +5,7 @@ import android.support.annotation.StringDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public interface Constant {
+public interface Constants {
 
     //String BASE_URL = "http://api.zhuishushenqi.com";
     //翻译接口
@@ -24,4 +24,7 @@ public interface Constant {
         String FEMALE = "female";
     }
 
+    int MSG_FROM_CLIENT = 110;
+    int MSG_FROM_SERVICE = 111;
+    String MSG_KEY = "messenger_msg_key";
 }

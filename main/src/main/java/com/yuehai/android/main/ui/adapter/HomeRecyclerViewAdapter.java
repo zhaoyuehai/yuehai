@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 import com.yuehai.android.common.widget.BaseRecycleAdapter;
 import com.yuehai.android.common.widget.BaseViewHolder;
-import com.yuehai.android.main.bean.UsersBean;
+import com.yuehai.android.common.bean.UsersBean;
 
 public class HomeRecyclerViewAdapter extends BaseRecycleAdapter<UsersBean.User> {
 

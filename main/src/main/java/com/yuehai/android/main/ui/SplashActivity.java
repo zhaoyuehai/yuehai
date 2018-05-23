@@ -16,7 +16,7 @@ import com.yuehai.android.main.contract.SplashContract;
  * 启动页
  * Created by 月海 on 2018/4/19.
  */
-public class SplashActivity extends BaseActivity implements SplashContract.SplashView{
+public class SplashActivity extends BaseActivity implements SplashContract.View{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

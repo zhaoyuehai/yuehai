@@ -7,13 +7,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.yuehai.android.common.base.BaseApplication;
 import com.yuehai.android.common.base.BaseFragment;
-import com.yuehai.android.common.dagger.ApiModule;
+import com.yuehai.android.common.bean.TransResult;
 import com.yuehai.android.main.R;
-import com.yuehai.android.main.bean.TransResult;
 import com.yuehai.android.main.contract.ChannelContract;
 import com.yuehai.android.main.dagger.DaggerMainComponent;
-import com.yuehai.android.main.dagger.MainApiModule;
 import com.yuehai.android.main.presenter.ChannelPresenter;
 
 /**
@@ -32,8 +31,7 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter> implements C
     @Override
     protected void initInject() {
         DaggerMainComponent.builder()
-                .apiModule(new ApiModule())
-                .mainApiModule(new MainApiModule())
+                .baseComponent(BaseApplication.getApplication().getBaseComponent())
                 .build()
                 .inject(this);
     }

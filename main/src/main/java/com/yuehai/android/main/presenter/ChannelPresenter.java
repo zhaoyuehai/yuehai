@@ -1,8 +1,8 @@
 package com.yuehai.android.main.presenter;
 
+import com.yuehai.android.common.api.ApiManager;
 import com.yuehai.android.common.base.RxPresenter;
-import com.yuehai.android.main.api.MainApi;
-import com.yuehai.android.main.bean.TransResult;
+import com.yuehai.android.common.bean.TransResult;
 import com.yuehai.android.main.contract.ChannelContract;
 
 import javax.inject.Inject;
@@ -13,11 +13,11 @@ import rx.schedulers.Schedulers;
 
 public class ChannelPresenter extends RxPresenter<ChannelContract.View> implements ChannelContract.Presenter{
 
-    private MainApi mainApi;
+    private ApiManager apiManager;
 
     @Inject
-    public ChannelPresenter(MainApi mainApi) {
-        this.mainApi = mainApi;
+    public ChannelPresenter(ApiManager apiManager) {
+        this.apiManager = apiManager;
     }
 
     private String from = "auto";
@@ -35,7 +35,7 @@ public class ChannelPresenter extends RxPresenter<ChannelContract.View> implemen
     public void trans(String msg) {
         mView.showLoadingView();
         mView.setButtonEnable(false);
-        mainApi.trans(from, msg, to)
+        apiManager.trans(from, msg, to)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<TransResult>() {

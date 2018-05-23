@@ -1,20 +1,22 @@
 package com.yuehai.android.main.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.yuehai.android.common.base.BaseApplication;
 import com.yuehai.android.common.base.BaseFragment;
-import com.yuehai.android.common.dagger.ApiModule;
+import com.yuehai.android.common.bean.UserBean;
+import com.yuehai.android.common.bean.UsersBean;
 import com.yuehai.android.main.R;
-import com.yuehai.android.main.bean.UserBean;
-import com.yuehai.android.main.bean.UsersBean;
 import com.yuehai.android.main.contract.HomeContract;
 import com.yuehai.android.main.dagger.DaggerMainComponent;
-import com.yuehai.android.main.dagger.MainApiModule;
 import com.yuehai.android.main.presenter.HomePresenter;
 import com.yuehai.android.main.ui.adapter.HomeRecyclerViewAdapter;
 
@@ -36,12 +38,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     protected void initInject() {
         DaggerMainComponent.builder()
-                .apiModule(new ApiModule())
-                .mainApiModule(new MainApiModule())
+                .baseComponent(BaseApplication.getApplication().getBaseComponent())
                 .build()
                 .inject(this);
     }
-
 
     @Override
     protected int getViewResource() {
@@ -68,10 +68,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             adapter.clear();
             mPresenter.getUserList();
         });
+        HandlerThread sss = new HandlerThread("sss");
+        sss.start();
+        Handler handler = new Handler(sss.getLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+            }
+        };
+
     }
 
 
-//    @Subscribe(threadMode = ThreadMode.ASYNC)
+//    @Subscribe(threadMode = ThreadMode.BACKGROUND)
 //    public void GetRecommendEvent(Integer event) {
 //        TextView home_tv = findViewById(R.id.home_tv);
 //        home_tv.setText(event);

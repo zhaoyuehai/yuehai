@@ -1,6 +1,5 @@
 package com.yuehai.android.main.contract;
 
-import com.yuehai.android.common.base.BasePresenter;
 import com.yuehai.android.common.base.BaseView;
 
 /**
@@ -8,10 +7,12 @@ import com.yuehai.android.common.base.BaseView;
  */
 public class CenterContract {
 
-    public interface CenterView extends BaseView {
+    public interface View extends BaseView {
+
     }
 
-    public interface CenterPresenter extends BasePresenter {
+    public interface Presenter {
+        void demo(String str);
     }
 
 }

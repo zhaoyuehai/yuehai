@@ -1,4 +1,4 @@
-package com.yuehai.android.main.bean;
+package com.yuehai.android.common.bean;
 
 public class UserBean extends BaseBean2 {
 

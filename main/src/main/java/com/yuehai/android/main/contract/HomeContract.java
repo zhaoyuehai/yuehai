@@ -1,9 +1,8 @@
 package com.yuehai.android.main.contract;
 
-import com.yuehai.android.common.base.BasePresenter;
 import com.yuehai.android.common.base.BaseView;
-import com.yuehai.android.main.bean.UserBean;
-import com.yuehai.android.main.bean.UsersBean;
+import com.yuehai.android.common.bean.UserBean;
+import com.yuehai.android.common.bean.UsersBean;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class HomeContract {
         void postShowUsers(UsersBean users);
     }
 
-    public interface Presenter extends BasePresenter<HomeContract.View> {
+    public interface Presenter {
         void getRecommendList();
 
         void getUserList();

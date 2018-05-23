@@ -17,8 +17,8 @@ import javax.inject.Inject;
  * Created by 月海 on 2018/4/20.
  */
 
-public abstract class BaseFragment<T1 extends BasePresenter> extends Fragment implements BaseView {
-
+public abstract class BaseFragment<T1 extends BasePresenter> extends Fragment {
+    //T1必须是个类
     @Inject
     protected T1 mPresenter;
 

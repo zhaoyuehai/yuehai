@@ -1,8 +1,7 @@
 package com.yuehai.android.main.contract;
 
-import com.yuehai.android.common.base.BasePresenter;
 import com.yuehai.android.common.base.BaseView;
-import com.yuehai.android.main.bean.TransResult;
+import com.yuehai.android.common.bean.TransResult;
 
 /**
  * 频道契约类
@@ -16,7 +15,7 @@ public class ChannelContract {
         void showResult(TransResult transResult);
     }
 
-    public interface Presenter extends BasePresenter<ChannelContract.View> {
+    public interface Presenter {
 
         void trans(String msg);
 

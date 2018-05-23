@@ -1,4 +1,4 @@
-package com.yuehai.android.main.bean;
+package com.yuehai.android.common.bean;
 
 import java.io.Serializable;
 import java.util.List;

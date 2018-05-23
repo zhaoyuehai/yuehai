@@ -3,14 +3,14 @@ package com.yuehai.android.main.presenter;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.yuehai.android.common.api.ApiManager;
 import com.yuehai.android.common.base.RxPresenter;
-import com.yuehai.android.common.config.Constant;
+import com.yuehai.android.common.config.Constants;
 import com.yuehai.android.common.util.ToastUtils;
-import com.yuehai.android.main.api.MainApi;
-import com.yuehai.android.main.bean.BaseBean2;
-import com.yuehai.android.main.bean.Recommend;
-import com.yuehai.android.main.bean.UserBean;
-import com.yuehai.android.main.bean.UsersBean;
+import com.yuehai.android.common.bean.BaseBean2;
+import com.yuehai.android.common.bean.Recommend;
+import com.yuehai.android.common.bean.UserBean;
+import com.yuehai.android.common.bean.UsersBean;
 import com.yuehai.android.main.contract.HomeContract;
 
 import java.io.ByteArrayOutputStream;
@@ -32,18 +32,26 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+/**
+ *
+ * HomeFragment 用的是  HomeP 用的是---> HomeP --impl--> H.P
+ *
+ * HomeP --impl--> H.P
+ * HomeP --extd--> RxP
+ *                 RxP --impl--> BaseP
+ */
 public class HomePresenter extends RxPresenter<HomeContract.View> implements HomeContract.Presenter {
 
-    private MainApi mMainApi;
+    private ApiManager mApiManager;
 
     @Inject
-    public HomePresenter(MainApi mainApi) {
-        this.mMainApi = mainApi;
+    public HomePresenter(ApiManager apiManager) {
+        this.mApiManager = apiManager;
     }
 
     @Override
     public void getRecommendList() {
-        mMainApi.getRecommend(Constant.Gender.MALE)
+        mApiManager.getRecommend(Constants.Gender.MALE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Recommend>() {
@@ -68,7 +76,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     @Override
     public void getUserList() {
         mView.showLoadingView();
-        mMainApi.getUserList()
+        mApiManager.getUserList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UsersBean>() {
@@ -169,7 +177,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     @Override
     public void findUserById(int id) {
         mView.showLoadingView();
-        mMainApi.findUserById(id)
+        mApiManager.findUserById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserBean>() {
@@ -199,7 +207,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
         user.setPassword("123456");
         String obj = new Gson().toJson(user);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), obj);
-        mMainApi.addUser(requestBody)
+        mApiManager.addUser(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseBean2>() {

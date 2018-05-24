@@ -5,8 +5,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.yuehai.android.center.bean.Book;
 import com.yuehai.android.common.base.BaseApplication;
 import com.yuehai.android.common.base.BaseFragment;
 import com.yuehai.android.common.bean.UserBean;
@@ -14,6 +16,8 @@ import com.yuehai.android.common.bean.UsersBean;
 import com.yuehai.android.main.R;
 import com.yuehai.android.main.contract.HomeContract;
 import com.yuehai.android.main.dagger.DaggerMainComponent;
+import com.yuehai.android.main.event.AddBookEvent;
+import com.yuehai.android.main.event.GetBookEvent;
 import com.yuehai.android.main.presenter.HomePresenter;
 import com.yuehai.android.main.ui.adapter.HomeRecyclerViewAdapter;
 
@@ -64,10 +68,23 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomeRecyclerViewAdapter();
         rcv.setAdapter(adapter);
-        findViewById(R.id.btn).setOnClickListener(view -> {
+        Button btn1 = findViewById(R.id.btn1);
+        btn1.setText("查看图书列表");
+        btn1.setOnClickListener(view -> {
+//            x++;
+//            EventBus.getDefault().post("第" + x + "次消息");
+//            mPresenter.addUser()
+            EventBus.getDefault().post(new GetBookEvent());
+        });
+        Button btn2 = findViewById(R.id.btn2);
+        btn2.setText("添加图书");
+        btn2.setOnClickListener(view -> {
             x++;
-            EventBus.getDefault().post("第" + x + "次消息");
-//                mPresenter.addUser()
+            AddBookEvent addBookEvent = new AddBookEvent();
+            Book book = new Book();
+            book.setBookName("图书" + x);
+            addBookEvent.setBook(book);
+            EventBus.getDefault().post(addBookEvent);
 
         });
         srl.setOnRefreshListener(() -> {

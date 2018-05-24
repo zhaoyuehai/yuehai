@@ -18,15 +18,21 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.yuehai.android.center.IBookManager;
+import com.yuehai.android.center.bean.Book;
 import com.yuehai.android.common.base.BaseAppCompatActivity;
 import com.yuehai.android.common.config.Constants;
 import com.yuehai.android.common.util.LogUtils;
 import com.yuehai.android.common.util.ToastUtils;
 import com.yuehai.android.main.R;
+import com.yuehai.android.main.event.AddBookEvent;
+import com.yuehai.android.main.event.GetBookEvent;
 import com.yuehai.android.main.service.DemoMessengerService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 /**
  * 主界面
@@ -36,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class MainActivity extends BaseAppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     private ServiceConnection messengerConnection;
+    private ServiceConnection bookConnection;
     private Messenger messenger;
     private Messenger mReplyMessenger;
 
@@ -53,7 +60,10 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
         RadioButton rb = findViewById(R.id.main_home_rb);
         rb.setChecked(true);
         bindMessengerService();
+        bindBookService();
     }
+
+//---------------------------Messenger通信------------------------------------------------------------------------------
 
     @Subscribe
     public void sendMessage(String content) {
@@ -75,7 +85,6 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.MSG_KEY, "Hello! This is client.");
                 sendMessageToService(bundle, Constants.MSG_FROM_CLIENT);
-
             }
 
             @Override
@@ -122,10 +131,72 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
         }
     }
 
+    //--------------------------------AIDL通信---------------------------------------------------------------------
+
+    @Subscribe
+    public void getBookList(GetBookEvent getBookEvent) {
+        if (bookConnection == null) return;
+        if (iBookManager == null) {
+            bindBookService();
+            return;
+        }
+        try {
+            List<Book> bookList = iBookManager.getBookList();
+            LogUtils.e(bookList.toString());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void addBook(AddBookEvent addBookEvent) {
+        if (bookConnection == null) return;
+        if (iBookManager == null) return;
+        try {
+            iBookManager.addBook(addBookEvent.getBook());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private IBookManager iBookManager;
+
+    private void bindBookService() {
+        bookConnection = new ServiceConnection() {
+
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                iBookManager = IBookManager.Stub.asInterface(iBinder);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+                iBookManager = null;
+            }
+        };
+        //5.0之后不能用Intent隐式启动service，必须指定Intent的ComponentName组件名称信息
+
+        //方案一：setAction + setPackage（前提是Service必须设置了Action）
+//        Intent intent = new Intent();
+//        intent.setAction("com.yuehai.android.center.service.BookAIDLService");
+//        intent.setPackage("com.yuehai.android.center");
+//        bindService(intent, bookConnection, Context.BIND_AUTO_CREATE);
+
+        //方案二： setComponent即可
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(
+                "com.yuehai.android.center",
+                "com.yuehai.android.center.service.BookAIDLService"));
+        bindService(intent, bookConnection, Context.BIND_AUTO_CREATE);
+    }
+
     @Override
     protected void onDestroy() {
         if (messengerConnection != null) {
             unbindService(messengerConnection);
+        }
+        if (bookConnection != null) {
+            unbindService(bookConnection);
         }
         EventBus.getDefault().unregister(this);
         super.onDestroy();

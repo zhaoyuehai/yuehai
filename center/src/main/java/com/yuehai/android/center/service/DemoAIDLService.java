@@ -1,4 +1,4 @@
-package com.yuehai.android.center.ui.service;
+package com.yuehai.android.center.service;
 
 import android.app.Service;
 import android.content.Intent;

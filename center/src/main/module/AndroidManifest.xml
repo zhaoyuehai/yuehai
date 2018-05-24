@@ -20,11 +20,21 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".ui.service.DemoAIDLService"
+            android:name=".service.DemoAIDLService"
             android:exported="true"
             android:process=":DemoAIDLService">
             <intent-filter>
-                <action android:name="com.yuehai.android.center.ui.service.DemoAIDLService" />
+                <action android:name="com.yuehai.android.center.service.DemoAIDLService" />
+            </intent-filter>
+        </service>
+        <!--BookAIDLService是用来跨应用通信，所以不需要在新的进程里面去调用
+        因为是两个应用自然就是两个进程了。可不需要android:process=属性来实现跨进程了-->
+        <service
+            android:name=".service.BookAIDLService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.yuehai.android.center.service.BookAIDLService" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
     </application>

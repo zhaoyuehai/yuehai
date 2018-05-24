@@ -15,7 +15,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.yuehai.android.center.IMyAidlInterface;
 import com.yuehai.android.center.R;
-import com.yuehai.android.center.ui.service.DemoAIDLService;
+import com.yuehai.android.center.service.DemoAIDLService;
 import com.yuehai.android.common.base.ToolbarAppCompatActivity;
 import com.yuehai.android.common.util.LogUtils;
 
@@ -70,10 +70,9 @@ public class UserInfoActivity extends ToolbarAppCompatActivity {
             }
         };
 //        Intent intent = new Intent();
-//        intent.setAction("com.yuehai.android.center.ui.service.DemoAIDLService");
 //        intent.setComponent(new ComponentName(
 //                "com.yuehai.android.center",
-//                "com.yuehai.android.center.ui.service.DemoAIDLService"));
+//                "com.yuehai.android.center.service.DemoAIDLService"));
 //        bindService(intent, aidlConnection, Context.BIND_AUTO_CREATE);
 
         Intent intent = new Intent(this, DemoAIDLService.class);

@@ -1,25 +1,31 @@
-package com.yuehai.android.common.bean;
+package com.yuehai.android.main.bean;
 
-public class UserBean extends BaseBean2 {
+import com.yuehai.android.common.bean.BaseBean2;
+
+import java.util.List;
+
+public class UsersBean extends BaseBean2 {
 
     //    {
 //        "code": 0,
-//            "message": "success",
-//            "user": {
-//        "id": 1,
+//            "list": [
+//        {
+//            "id": 1,
 //                "mobile": "18511073583",
 //                "password": "123456",
 //                "userName": "月海"
+//        }
+//  ],
+//        "message": "success"
 //    }
-//    }
-    private User user;
+    private List<User> list;
 
-    public User getUser() {
-        return user;
+    public List<User> getList() {
+        return list;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setList(List<User> list) {
+        this.list = list;
     }
 
     public static class User {
@@ -62,7 +68,7 @@ public class UserBean extends BaseBean2 {
 
         @Override
         public String toString() {
-            return "userName:" + userName + "\npassword:" + password + "\nmobile:" + mobile;
+            return "id:" + id + "userName:" + userName + "\npassword:" + password + "\nmobile:" + mobile;
         }
     }
 }

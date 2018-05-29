@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.yuehai.android.common.widget.BaseViewHolder;
 import com.yuehai.android.main.R;
-import com.yuehai.android.common.bean.UsersBean;
+import com.yuehai.android.main.bean.UsersBean;
 
 public class HomeRecyclerViewHolder extends BaseViewHolder<UsersBean.User> {
     private TextView textView;

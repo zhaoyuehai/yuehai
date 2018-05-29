@@ -1,8 +1,8 @@
 package com.yuehai.android.main.contract;
 
 import com.yuehai.android.common.base.BaseView;
-import com.yuehai.android.common.bean.UserBean;
-import com.yuehai.android.common.bean.UsersBean;
+import com.yuehai.android.main.bean.UserBean;
+import com.yuehai.android.main.bean.UsersBean;
 
 import java.util.List;
 

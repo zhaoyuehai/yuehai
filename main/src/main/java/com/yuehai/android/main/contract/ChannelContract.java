@@ -1,7 +1,7 @@
 package com.yuehai.android.main.contract;
 
 import com.yuehai.android.common.base.BaseView;
-import com.yuehai.android.common.bean.TransResult;
+import com.yuehai.android.main.bean.TransResult;
 
 /**
  * 频道契约类

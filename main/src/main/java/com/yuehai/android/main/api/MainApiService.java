@@ -1,10 +1,10 @@
-package com.yuehai.android.common.api;
+package com.yuehai.android.main.api;
 
 import com.yuehai.android.common.bean.BaseBean2;
-import com.yuehai.android.common.bean.Recommend;
-import com.yuehai.android.common.bean.TransResult;
-import com.yuehai.android.common.bean.UserBean;
-import com.yuehai.android.common.bean.UsersBean;
+import com.yuehai.android.main.bean.Recommend;
+import com.yuehai.android.main.bean.TransResult;
+import com.yuehai.android.main.bean.UserBean;
+import com.yuehai.android.main.bean.UsersBean;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
-public interface ApiService {
+public interface MainApiService {
 
     @GET("/book/recommend")
     Observable<Recommend> getRecommend(@Query("gender") String gender);

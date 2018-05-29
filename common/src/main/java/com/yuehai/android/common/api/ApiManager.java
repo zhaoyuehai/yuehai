@@ -1,83 +1,60 @@
 package com.yuehai.android.common.api;
 
+import android.text.TextUtils;
+
 import com.yuehai.android.common.base.BaseApplication;
-import com.yuehai.android.common.bean.BaseBean2;
-import com.yuehai.android.common.bean.Recommend;
-import com.yuehai.android.common.bean.TransResult;
-import com.yuehai.android.common.bean.UserBean;
-import com.yuehai.android.common.bean.UsersBean;
+import com.yuehai.android.common.config.AppConfig;
 import com.yuehai.android.common.config.Constants;
+import com.yuehai.android.common.util.LogUtils;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 
 /**
  * 是通过BaseComponent和BaseApplication实现全局的单例
  */
 public class ApiManager {
 
-    private static ApiService apiService;
+    private final Retrofit retrofit;
 
     ApiManager() {
         File cacheDirectory = new File(BaseApplication.getApplication().getCacheDir(), "cache");
         int cacheSize = 10 * 1024 * 1024;
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//        if (AppConfig.getInstance().isDebug()) {
-//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//            builder.addInterceptor(logging);
-//        }
-        OkHttpClient okHttpClient = builder.connectTimeout(15, TimeUnit.SECONDS)
+        if (AppConfig.getInstance().isDebug()) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(
+                    message -> {
+                        if (TextUtils.isEmpty(message)) return;
+                        LogUtils.e("收到响应: " + message);
+                    });
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(logging);
+        }
+        //OKHttp默认三个超时时间是10s
+        OkHttpClient okHttpClient = builder
+                .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(new HeaderInterceptor())
                 .cache(new Cache(cacheDirectory, cacheSize)).build();
-        Retrofit retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
-        apiService = retrofit.create(ApiService.class);
     }
 
-    public Observable<Recommend> getRecommend(String gender) {
-        return apiService.getRecommend(gender);
+    public <T> T getApiService(Class<T> apiServer) {
+        return retrofit.create(apiServer);
     }
 
-    /**
-     * 翻译接口
-     */
-    public Observable<TransResult> trans(String from,
-                                         String msg,
-                                         String to) {
-        return apiService.trans(from, msg, to);
-    }
-
-    /**
-     * 获取用户列表
-     */
-    public Observable<UsersBean> getUserList() {
-        return apiService.getUserList();
-    }
-
-    /**
-     * 根据ID获取用户
-     */
-    public Observable<UserBean> findUserById(int id) {
-        return apiService.findUserById(id);
-    }
-
-    public Observable<BaseBean2> addUser(RequestBody requestBody) {
-        return apiService.addUser(requestBody);
-    }
 }

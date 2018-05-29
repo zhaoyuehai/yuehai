@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.yuehai.android.common.base.BaseApplication;
 import com.yuehai.android.common.base.BaseFragment;
-import com.yuehai.android.common.bean.TransResult;
+import com.yuehai.android.main.bean.TransResult;
 import com.yuehai.android.main.R;
 import com.yuehai.android.main.contract.ChannelContract;
 import com.yuehai.android.main.dagger.DaggerMainComponent;

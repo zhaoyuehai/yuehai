@@ -1,9 +1,12 @@
-package com.yuehai.android.common.bean;
+package com.yuehai.android.main.bean;
+
+
+import com.yuehai.android.common.bean.BaseBean;
 
 import java.util.List;
 
 public class TransResult extends BaseBean {
-//    {"message":"success","result":[{"dst":"你好","srcIndex":"0","to":"cn"}],"code":"000000"}
+    //    {"message":"success","result":[{"dst":"你好","srcIndex":"0","to":"cn"}],"code":"000000"}
     //    {"message":"success","result":[{"dst":"Hello there","srcIndex":"0","to":"en"}],"code":"000000"}
     private List<Result> result;
 

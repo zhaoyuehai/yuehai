@@ -59,8 +59,8 @@ public class MainActivity extends BaseAppCompatActivity implements RadioGroup.On
         rg.setOnCheckedChangeListener(this);
         RadioButton rb = findViewById(R.id.main_home_rb);
         rb.setChecked(true);
-        bindMessengerService();
-        bindBookService();
+//        bindMessengerService();
+//        bindBookService();
     }
 
 //---------------------------Messenger通信------------------------------------------------------------------------------

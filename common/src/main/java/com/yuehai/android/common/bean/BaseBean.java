@@ -1,6 +1,6 @@
 package com.yuehai.android.common.bean;
 
-class BaseBean {
+public class BaseBean {
     private String message;
     private String code;
 

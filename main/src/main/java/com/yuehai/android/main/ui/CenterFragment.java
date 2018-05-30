@@ -32,15 +32,16 @@ public class CenterFragment extends BaseFragment<CenterPresenter> implements Cen
 
     @Override
     protected int getViewResource() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_center;
     }
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        TextView home_tv = findViewById(R.id.home_tv);
-        home_tv.setText("个人中心");
-        trans_et = findViewById(R.id.trans_et);
-        trans_btn = findViewById(R.id.trans_btn);
+        TextView center_tv = findViewById(R.id.center_tv);
+        center_tv.setText("选取图片");
+        center_tv.setOnClickListener(v ->{
+
+        });
         mPresenter.demo("个人中心");
     }
 

@@ -51,8 +51,8 @@ dependencies {
     api apis.retrofit
     api apis.retrofit_converter_gson
     api apis.retrofit_adapter_rxjava
+    api apis.logging_interceptor
     api apis.rxjava
     api apis.rxandroid
-    api apis.logging_interceptor
     annotationProcessor apis.dagger_compiler
 }

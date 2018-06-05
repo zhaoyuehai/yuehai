@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.yuehai.android.common.base.ToolbarAppCompatActivity;
 import com.yuehai.android.common.util.ToastUtils;
 import com.yuehai.android.search.R;
+import com.yuehai.android.search.jni.MyJniTest;
 
 @Route(path = "/search/search")
 public class SearchActivity extends ToolbarAppCompatActivity {
@@ -29,6 +31,9 @@ public class SearchActivity extends ToolbarAppCompatActivity {
                 return false;
             }
         });
+
+        TextView search_tv = findViewById(R.id.search_tv);
+        search_tv.setText(new MyJniTest().getName2("1"));
     }
 
     @Override

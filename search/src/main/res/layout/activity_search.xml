@@ -15,4 +15,14 @@
         android:background="@color/white"
         app:iconifiedByDefault="false"
         app:queryHint="请输入内容" />
+    <TextView
+        android:id="@+id/search_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/blue"
+        android:textSize="18sp" />
 </LinearLayout>

@@ -1,4 +1,10 @@
-**总结要点**
+#Android组件化开发Demo
+
+
+
+
+
+**注意**
 
 1. common组件：被其他所有组件依赖（common组件含有base基类）。
 2. app壳组件：仅在集成开发模式下用的着， 里面只含有一个全局的MyApplication,当然该MyApplication类也继承了BaseApplication基类，所以app壳组件也依赖common组件。
